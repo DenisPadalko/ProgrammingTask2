@@ -154,7 +154,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Container.cpp" />
+    <ClCompile Include="Exceptions.cpp" />
+    <ClCompile Include="Iterator.cpp" />
+    <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Sorter.cpp" />
     <ClCompile Include="Task9.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Container.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="Loader.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Sorter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

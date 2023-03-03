@@ -22,6 +22,7 @@ public:
 	Matrix& operator=(Matrix&& AnotherMatrix);
 	void ShowMatrix() const;
 	void ConvertMatrixToString(string& Str) const;
+	void ConvertStringToMatrix(const char* Str);
 	double** GetMatrix() const;
 	void SetMatrixElem(const double Elem, const size_t RowsPosition, const size_t ColumnsPosition);
 	void SetMatrix(double** Matr);
@@ -55,6 +56,7 @@ public:
 	friend const bool operator!=(const Matrix& Left, const Matrix& Right);
 
 	friend ostream& operator<<(ostream& out, const Matrix& M);
+	friend istream& operator>>(istream& in, Matrix& M);
 
 	void MatrixTransponation();
 	void CreateNullMatrix(const size_t Rows, const size_t Columns);

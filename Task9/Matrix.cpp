@@ -1,5 +1,6 @@
 #include "Matrix.h"
 #include "Exceptions.h"
+#include <sstream>
 
 Matrix::Matrix() : Columns(3), Rows(3)
 {
@@ -114,12 +115,15 @@ Matrix::~Matrix()
 Matrix& Matrix::operator=(const Matrix& AnotherMatrix)
 {
 	if (&AnotherMatrix == this) return *this;
-	for (size_t i = 0; i < Rows; ++i)
+	if(MatrixElements)
 	{
-		delete[] MatrixElements[i];
+		for (size_t i = 0; i < Rows; ++i)
+		{
+			delete[] this->MatrixElements[i];
+		}
+		delete[] this->MatrixElements;
 	}
-	delete[] MatrixElements;
-
+		
 	Columns = AnotherMatrix.Columns;
 	Rows = AnotherMatrix.Rows;
 	MatrixElements = new double* [Rows];
@@ -188,6 +192,45 @@ void Matrix::ConvertMatrixToString(string& Str) const
 	}
 	Str += ']';
 };
+
+void Matrix::ConvertStringToMatrix(const char* Str)
+{
+	Columns = 1;
+	Rows = 0;
+	size_t i = 0, j = 0;
+	size_t Col = 1;
+	while (Str[i] != '\0')
+	{
+		if (Str[i] == ',')
+		{
+			Col += 1;
+		}
+		else if (Str[i] == ';')
+		{
+			Rows += 1;
+			Columns = Col;
+			Col = 1;
+		}
+		i++;
+	}
+	MatrixElements = new double* [Rows];
+	for (i = 0; i < Rows; ++i)
+	{
+		MatrixElements[i] = new double[Columns];
+	}
+	const char s[6] = "[];, ";
+	char* NextNumber;
+	char* Number = strtok_s((char*)Str, s, &NextNumber);
+	for (i = 0; i < Rows; ++i)
+	{
+		for (j = 0; j < Columns; j++)
+		{
+			MatrixElements[i][j] = strtod(Number, NULL);
+			Number = strtok_s(NULL, s, &NextNumber);
+		}
+	}
+}
+
 
 double** Matrix::GetMatrix() const
 {
@@ -610,6 +653,13 @@ ostream& operator<<(ostream& out, const Matrix& M)
 	return out;
 }
 
+istream& operator>>(istream& in, Matrix& M)
+{
+	string Str;
+	getline(in, Str);
+	M.ConvertStringToMatrix(Str.c_str());
+	return in;
+}
 
 const float Matrix::CalculateSumOfElementsInDiagonals() const
 {
