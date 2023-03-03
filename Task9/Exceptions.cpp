@@ -99,3 +99,18 @@ const string& CannotOpenTheFileException::GetMessage() const
 {
 	return TextOfMessage;
 }
+
+OperationIsNotCorrect::OperationIsNotCorrect()
+{
+	TextOfMessage = "Error. One of operations in 'Actions.txt' file are not correct";
+}
+
+OperationIsNotCorrect::OperationIsNotCorrect(const string& ErrorText)
+{
+	TextOfMessage = ErrorText;
+}
+
+const string& OperationIsNotCorrect::GetMessage() const
+{
+	return TextOfMessage;
+}

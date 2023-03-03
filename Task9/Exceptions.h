@@ -74,3 +74,11 @@ public:
 	CannotOpenTheFileException(const string& ErrorText);
 	const string& GetMessage() const override;
 };
+
+class OperationIsNotCorrect final : public BaseException
+{
+public:
+	OperationIsNotCorrect();
+	OperationIsNotCorrect(const string& ErrorText);
+	const string& GetMessage() const override;
+};

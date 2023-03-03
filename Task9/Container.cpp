@@ -1,4 +1,5 @@
 #include "Container.h"
+#include <fstream>
 #include "Sorter.cpp"
 #include "Loader.h"
 #include "Exceptions.h"
@@ -135,4 +136,35 @@ const vector<T> Container<T>::GetVectorOfData() const
 {
     vector<T> Vec(make_move_iterator(ArrayOfData.get()), make_move_iterator(ArrayOfData.get() + SizeOfArray));
     return Vec;
+}
+
+template <typename T>
+const vector<char> Container<T>::ReadActionsFromFile()
+{
+    ifstream Input;
+    Input.open("Actions.txt", ios::in);
+    char Temp;
+    Actions.clear();
+    while(Input.get(Temp))
+    {
+        switch (Temp)
+        {
+        case '+':
+        case '-':
+        case '/':
+        case '*':
+            Actions.push_back(Temp);
+            break;
+        default:
+            throw OperationIsNotCorrect("Wrong symbol while reading operations: " + Temp);
+        }
+    }
+    Input.close();
+    return Actions;
+}
+
+template <typename T>
+const T& Container<T>::Calculate() const
+{
+    
 }

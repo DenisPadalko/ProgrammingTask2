@@ -25,7 +25,10 @@ public:
     
     int GetSize() const;
     const vector<T> GetVectorOfData() const;
+    const vector<char> ReadActionsFromFile();
+    const T& Calculate() const;
 private:
     unique_ptr<T[]> ArrayOfData;
     int SizeOfArray;
+    vector<char> Actions;
 };

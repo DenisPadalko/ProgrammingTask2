@@ -171,6 +171,7 @@
     <ClInclude Include="Sorter.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Actions.txt" />
     <Content Include="Input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
