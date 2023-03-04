@@ -114,3 +114,18 @@ const string& OperationIsNotCorrect::GetMessage() const
 {
 	return TextOfMessage;
 }
+
+WrongNumberOfActions::WrongNumberOfActions()
+{
+	TextOfMessage = "There are more or less operations than needed";
+}
+
+WrongNumberOfActions::WrongNumberOfActions(const string& ErrorText)
+{
+	TextOfMessage = ErrorText;
+}
+
+const string& WrongNumberOfActions::GetMessage() const
+{
+	return TextOfMessage;
+}

@@ -160,11 +160,35 @@ const vector<char> Container<T>::ReadActionsFromFile()
         }
     }
     Input.close();
+    if((Actions.size() + 1) != SizeOfArray)
+    {
+        throw WrongNumberOfActions("Wrong number of actions");
+    }
     return Actions;
 }
 
 template <typename T>
 const T& Container<T>::Calculate() const
 {
-    
+    T Result = ArrayOfData[0];
+    for(int i = 1; i < SizeOfArray; ++i)
+    {
+        Result += MapOfActions<T>(Actions[i - 1])(Result, ArrayOfData[i]);
+    }
+    return Result;
+}
+
+template <typename T>
+MapOfActions<T>::MapOfActions(char InAction) : Operation(InAction)
+{
+    Actions['+'] = plus<T>();
+    Actions['-'] = minus<T>();
+    Actions['*'] = multiplies<T>();
+    Actions['/'] = divides<T>();
+}
+
+template <typename T>
+void MapOfActions<T>::operator()(T& LeftOperator, const T& RightOperator)
+{
+    LeftOperator = Actions[Operation](LeftOperator, RightOperator);
 }

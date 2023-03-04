@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <map>
 #include <memory>
 #include <vector>
 #include "Iterator.h"
@@ -31,4 +33,15 @@ private:
     unique_ptr<T[]> ArrayOfData;
     int SizeOfArray;
     vector<char> Actions;
+};
+
+template <typename T>
+class MapOfActions
+{
+public:
+    MapOfActions(char InAction);
+    void operator()(T& LeftOperator, const T& RightOperator);
+private:
+    char Operation;
+    map<char, function<T(T, T)>> Actions;
 };

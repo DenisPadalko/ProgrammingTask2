@@ -82,3 +82,11 @@ public:
 	OperationIsNotCorrect(const string& ErrorText);
 	const string& GetMessage() const override;
 };
+
+class WrongNumberOfActions final : public BaseException
+{
+public:
+	WrongNumberOfActions();
+	WrongNumberOfActions(const string& ErrorText);
+	const string& GetMessage() const override;
+};
