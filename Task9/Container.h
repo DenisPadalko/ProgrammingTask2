@@ -28,7 +28,7 @@ public:
     int GetSize() const;
     const vector<T> GetVectorOfData() const;
     const vector<char> ReadActionsFromFile();
-    const T& Calculate() const;
+    const T Calculate() const;
 private:
     unique_ptr<T[]> ArrayOfData;
     int SizeOfArray;
@@ -40,7 +40,7 @@ class MapOfActions
 {
 public:
     MapOfActions(char InAction);
-    void operator()(T& LeftOperator, const T& RightOperator);
+    const T operator()(const T& LeftOperator, const T& RightOperator);
 private:
     char Operation;
     map<char, function<T(T, T)>> Actions;

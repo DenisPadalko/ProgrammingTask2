@@ -40,6 +40,9 @@ public:
 	friend const Matrix operator* (Matrix Left, const Matrix& Right);
 	friend const Matrix operator* (Matrix Left, const int Number);
 	friend const Matrix operator* (Matrix Left, const char* Str);
+	friend const Matrix operator/ (Matrix Left, const Matrix& Right);
+	friend const Matrix operator/ (Matrix Left, const int Number);
+	friend const Matrix operator/ (Matrix Left, const char* Str);
 
 	const Matrix& operator+=(const Matrix& AnotherMatrix);
 	const Matrix& operator+=(const int Number);
@@ -47,6 +50,8 @@ public:
 	const Matrix& operator-=(const int Number);
 	const Matrix& operator*=(const Matrix& AnotherMatrix);
 	const Matrix& operator*=(const int Number);
+	const Matrix& operator/=(const Matrix& AnotherMatrix);
+	const Matrix& operator/=(const int Number);
 
 	friend const bool operator<(const Matrix& Left, const Matrix& Right);
 	friend const bool operator>(const Matrix& Left, const Matrix& Right);

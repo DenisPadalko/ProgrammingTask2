@@ -329,6 +329,22 @@ const Matrix operator* (Matrix Left, const char* Str)
 	return Left * atoi(Str);
 };
 
+const Matrix operator/ (Matrix Left, const Matrix& Right)
+{
+	return Left /= Right;
+}
+
+const Matrix operator/ (Matrix Left, const int Number)
+{
+	return Left *= Number;
+}
+
+const Matrix operator/ (Matrix Left, const char* Str)
+{
+	cout << "Matrices don't have division" << endl;
+	return 0;
+}
+
 void GetMatr(const double** Mas, double** P, const int i, const int j, const int m)
 {
 	int di, dj;
@@ -581,6 +597,18 @@ const Matrix& Matrix::operator*=(const int Number)
 	}
 	return *this;
 };
+
+const Matrix& Matrix::operator/=(const Matrix& AnotherMatrix)
+{
+	cout << "Matrices don't have division" << endl;
+	return 0;
+}
+
+const Matrix& Matrix::operator/=(const int Number)
+{
+	cout << "Matrices don't have division" << endl;
+	return 0;
+}
 
 const bool operator<(const Matrix& Left, const Matrix& Right)
 {

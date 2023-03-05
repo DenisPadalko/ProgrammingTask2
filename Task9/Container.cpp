@@ -168,12 +168,13 @@ const vector<char> Container<T>::ReadActionsFromFile()
 }
 
 template <typename T>
-const T& Container<T>::Calculate() const
+const T Container<T>::Calculate() const
 {
     T Result = ArrayOfData[0];
-    for(int i = 1; i < SizeOfArray; ++i)
+    for(int i = 0; i < SizeOfArray - 1; ++i)
     {
-        Result += MapOfActions<T>(Actions[i - 1])(Result, ArrayOfData[i]);
+        MapOfActions<T> SomeMap(Actions[i]);
+        Result = SomeMap(Result, ArrayOfData[i + 1]);
     }
     return Result;
 }
@@ -188,7 +189,8 @@ MapOfActions<T>::MapOfActions(char InAction) : Operation(InAction)
 }
 
 template <typename T>
-void MapOfActions<T>::operator()(T& LeftOperator, const T& RightOperator)
+const T MapOfActions<T>::operator()(const T& LeftOperator, const T& RightOperator)
 {
-    LeftOperator = Actions[Operation](LeftOperator, RightOperator);
+    T Result = Actions[Operation](LeftOperator, RightOperator);
+    return Result;
 }
