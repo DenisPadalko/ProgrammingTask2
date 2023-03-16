@@ -24,7 +24,7 @@ Container<T>::Container(const unique_ptr<T[]>& Data, const int InSize) : ArrayOf
 }
 
 template <typename T>
-const T ConvertFromStringToSomeType(const string& Str)
+const T FromString(const string& Str)
 {
     T Value;
     istringstream Stream(Str);
@@ -53,7 +53,7 @@ void Container<T>::LoadFromFile()
     move(Temp.get(), Temp.get() + TempSize, ArrayOfData.get());
     for(int i = 0; i < DataFromFile.size(); ++i)
     {
-        ArrayOfData[TempSize + i] = ConvertFromStringToSomeType<T>(DataFromFile[i]);
+        ArrayOfData[TempSize + i] = FromString<T>(DataFromFile[i]);
     }
 }
 
@@ -70,7 +70,7 @@ void Container<T>::LoadFromConsole()
     move(Temp.get(), Temp.get() + TempSize, ArrayOfData.get()); 
     for(int i = 0; i < DataFromConsole.size(); ++i)
     {
-        ArrayOfData[TempSize + i] = ConvertFromStringToSomeType<T>(DataFromConsole[i]);
+        ArrayOfData[TempSize + i] = FromString<T>(DataFromConsole[i]);
     }
 }
 
@@ -141,29 +141,35 @@ const vector<T> Container<T>::GetVectorOfData() const
 template <typename T>
 const vector<char> Container<T>::ReadActionsFromFile()
 {
+    
     ifstream Input;
     Input.open("Actions.txt", ios::in);
     char Temp;
     Actions.clear();
-    while(Input.get(Temp))
+    if(SizeOfArray > 0)
     {
-        switch (Temp)
+        while(Input.get(Temp))
         {
-        case '+':
-        case '-':
-        case '/':
-        case '*':
-            Actions.push_back(Temp);
-            break;
-        default:
-            throw OperationIsNotCorrect("Wrong symbol while reading operations: " + Temp);
+            switch (Temp)
+            {
+            case '+':
+            case '-':
+            case '/':
+            case '*':
+                Actions.push_back(Temp);
+                break;
+            case 10:
+                break;
+            default:
+                throw OperationIsNotCorrect("Wrong symbol while reading operations: " + Temp);
+            }
+        }
+        if((Actions.size() + 1) != SizeOfArray)
+        {
+            throw WrongNumberOfActions("Wrong number of actions");
         }
     }
     Input.close();
-    if((Actions.size() + 1) != SizeOfArray)
-    {
-        throw WrongNumberOfActions("Wrong number of actions");
-    }
     return Actions;
 }
 
